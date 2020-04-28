@@ -1,0 +1,42 @@
+@-webkit-keyframes flashError {
+  0% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+@keyframes flashError {
+  0% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+@keyframes bounce-7 {
+  0% {
+    transform: translateY(100%);
+  }
+  30% {
+    transform: translateY(100%);
+  }
+  60% {
+    transform: translateY(0);
+  }
+  80% {
+    transform: translateY(4px);
+  }
+  94% {
+    transform: translateY(0);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}

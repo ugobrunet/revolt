@@ -1,0 +1,46 @@
+{
+  "name": "create-react-app-with-typescript",
+  "version": "4.0.0",
+  "private": true,
+  "dependencies": {
+    "@material-ui/core": "latest",
+    "@material-ui/icons": "^4.9.1",
+    "@types/js-cookie": "^2.2.6",
+    "@types/lodash": "^4.14.150",
+    "@types/react": "latest",
+    "@types/react-dom": "latest",
+    "@types/react-router-dom": "^5.1.5",
+    "@types/styled-components": "^5.1.0",
+    "axios": "^0.19.2",
+    "boardgame.io": "^0.39.9",
+    "js-cookie": "^2.2.1",
+    "react": "latest",
+    "react-dom": "latest",
+    "react-intl-universal": "^2.2.5",
+    "react-router-dom": "^5.1.2",
+    "react-scripts": "latest",
+    "styled-components": "^5.1.0",
+    "typescript": "latest"
+  },
+  "scripts": {
+    "serve": "npm run tsc && npm run server",
+    "server": "node -r esm out/Server/index.js",
+    "tsc": "tsc",
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  }
+}

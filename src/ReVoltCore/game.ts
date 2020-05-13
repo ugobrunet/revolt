@@ -89,7 +89,7 @@ const AddCardToLine = (G: any, ctx: Ctx) => {
 
 const ReVolt = {
   name: "re_volt",
-  minPlayers: 2,
+  minPlayers: 1,
 
   setup: (ctx: Ctx) => ({
     numberOfCards: ctx.numPlayers,

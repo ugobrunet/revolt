@@ -8,6 +8,7 @@
     "@types/js-cookie": "^2.2.6",
     "@types/lodash": "^4.14.150",
     "@types/react": "latest",
+    "@types/react-beautiful-dnd": "^12.1.2",
     "@types/react-dom": "latest",
     "@types/react-router-dom": "^5.1.5",
     "@types/styled-components": "^5.1.0",
@@ -15,6 +16,7 @@
     "boardgame.io": "^0.39.9",
     "js-cookie": "^2.2.1",
     "react": "latest",
+    "react-beautiful-dnd": "^13.0.0",
     "react-dom": "latest",
     "react-intl-universal": "^2.2.5",
     "react-router-dom": "^5.1.2",
@@ -42,5 +44,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "@types/webpack-env": "^1.15.2"
   }
 }

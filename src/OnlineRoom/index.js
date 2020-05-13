@@ -4,31 +4,31 @@ import intl from "react-intl-universal";
 import { withStyles } from "@material-ui/core/styles";
 import PropTypes from "prop-types";
 import Card from "@material-ui/core/Card";
-import CardActions from "@material-ui/core/CardActions";
+// import CardActions from "@material-ui/core/CardActions";
 import CardContent from "@material-ui/core/CardContent";
 import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
 
 import {
   AlignCenterItem,
-  AlignLeftItem,
+  // AlignLeftItem,
   AlignRightItem,
   DetachedContainer,
-  VersusTag
+  VersusTag,
 } from "./elements";
 
-const styles = theme => ({
+const styles = (theme) => ({
   card: {
-    marginTop: 12
+    marginTop: 12,
   },
   title: {
-    fontSize: 14
-  }
+    fontSize: 14,
+  },
 });
 
 const findPlayerSeat = (players, playerName) =>
-  players.find(player => player.name === playerName);
-const findFreeSeat = players => players.find(player => !player.name);
+  players.find((player) => player.name === playerName);
+const findFreeSeat = (players) => players.find((player) => !player.name);
 
 class StyledRoom extends Component {
   handleJoinClick = () => {
@@ -76,7 +76,7 @@ class StyledRoom extends Component {
       <Card variant="outlined" className={classes.card}>
         <CardContent
           style={{
-            paddingBottom: "12px"
+            paddingBottom: "12px",
           }}
         >
           <Typography
@@ -117,7 +117,7 @@ class StyledRoom extends Component {
   }
 }
 StyledRoom.propTypes = {
-  classes: PropTypes.object.isRequired
+  classes: PropTypes.object.isRequired,
 };
 
 export default withStyles(styles)(StyledRoom);

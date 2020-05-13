@@ -229,7 +229,8 @@ var Deck = /** @class */ (function () {
         // console.log("Level Shooting:", shootLevel);
         // console.log("Shots:", JSON.stringify(shots));
         this.shots = shots.map(function (e) {
-            return { success: e <= shootLevel, random: random.Die(100, 2) };
+            var r = random.Die(100, 2);
+            return new Shoot(e <= shootLevel, r[0], r[1]);
         });
         return this;
     };
@@ -264,9 +265,9 @@ var Deck = /** @class */ (function () {
 export { Deck };
 var Runner = /** @class */ (function () {
     function Runner(id, type, deck) {
-        this.id = id;
+        this.id = +id;
         this.type = type;
-        this.deck = deck;
+        this.deck = new Deck(deck);
     }
     return Runner;
 }());
@@ -286,7 +287,7 @@ var Player = /** @class */ (function () {
             });
         }
         if (player && player.selectedRunner !== null)
-            this.selectedRunner = player.selectedRunner;
+            this.selectedRunner = +player.selectedRunner;
     }
     Player.prototype.setRunnersNumber = function (n) {
         this.runners = Array(n).fill(null);
@@ -450,6 +451,15 @@ var Player = /** @class */ (function () {
     return Player;
 }());
 export { Player };
+var Shoot = /** @class */ (function () {
+    function Shoot(success, radius, angle) {
+        this.success = success;
+        this.radius = radius;
+        this.angle = angle;
+    }
+    return Shoot;
+}());
+export { Shoot };
 var HeartBeat = /** @class */ (function () {
     function HeartBeat(value, ratio) {
         this.value = value;
@@ -457,11 +467,13 @@ var HeartBeat = /** @class */ (function () {
     }
     return HeartBeat;
 }());
-var PickedCard = /** @class */ (function () {
-    function PickedCard(type, pickedCard) {
-        this.type = type;
-        this.pickedCard = pickedCard;
-    }
-    return PickedCard;
-}());
+export { HeartBeat };
+// class PickedCard {
+//   type: string;
+//   pickedCard: number;
+//   constructor(type: string, pickedCard: number) {
+//     this.type = type;
+//     this.pickedCard = pickedCard;
+//   }
+// }
 //# sourceMappingURL=index.js.map

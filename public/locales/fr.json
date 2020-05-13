@@ -1,6 +1,6 @@
 {
   "app_bar.rules": "Règles",
-  "app_bar.title": "La Poursuite",
+  "app_bar.title": "REVOLT",
   "congratulations.draw": "Egalité",
   "congratulations.image": "Félicitation",
   "congratulations.winner": "Gagnant",
@@ -87,5 +87,6 @@
   "flamme_rouge.starting_block_spots": "Places au départ",
   "flamme_rouge.runners_per_player": "Coureur par joueur",
   "flamme_rouge.remaining_cards": "Cartes restantes : ",
-  "flamme_rouge.cards": "Cartes"
+  "flamme_rouge.cards": "Cartes",
+  "revolt.validate": "Valider"
 }

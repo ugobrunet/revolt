@@ -16,7 +16,7 @@ export class Deck {
   used: Array<number> = [];
   initialCards: Array<number> = [];
   pickedCard: number | null = null;
-  shots: Array<any> | null = null;
+  shots: Array<Shoot> | null = null;
   heartBeat: number = MIN_HEARTBEAT;
   heartBeatVariation: number = 0;
   shootVelocity: number = 0;
@@ -134,7 +134,7 @@ export class Deck {
     }
     return this;
   }
-  getHeartBeatVariationForHand(spotType: string): Array<number> {
+  getHeartBeatVariationForHand(spotType: string | null): Array<number> {
     return this.hand.map((e) => this.getHeartBeatVariationForCard(e, spotType));
   }
   getHeartBeatVariationForCard(card: number, spotType: string | null): number {
@@ -238,7 +238,8 @@ export class Deck {
     // console.log("Shots:", JSON.stringify(shots));
 
     this.shots = shots.map((e: number) => {
-      return { success: e <= shootLevel, random: random.Die(100, 2) };
+      const r = random.Die(100, 2);
+      return new Shoot(e <= shootLevel, r[0], r[1]);
     });
 
     return this;
@@ -282,9 +283,9 @@ export class Runner {
   type: string;
   deck: Deck;
   constructor(id: number, type: string, deck: Deck) {
-    this.id = id;
+    this.id = +id;
     this.type = type;
-    this.deck = deck;
+    this.deck = new Deck(deck);
   }
 }
 
@@ -302,7 +303,7 @@ export class Player {
       });
     }
     if (player && player.selectedRunner !== null)
-      this.selectedRunner = player.selectedRunner;
+      this.selectedRunner = +player.selectedRunner;
   }
   static RunnerTypes = [
     "Sprinter",
@@ -481,7 +482,18 @@ export class Player {
   }
 }
 
-class HeartBeat {
+export class Shoot {
+  success: boolean;
+  radius: number;
+  angle: number;
+  constructor(success: boolean, radius: number, angle: number) {
+    this.success = success;
+    this.radius = radius;
+    this.angle = angle;
+  }
+}
+
+export class HeartBeat {
   value: number;
   ratio: number;
   constructor(value: number, ratio: number) {
@@ -490,11 +502,11 @@ class HeartBeat {
   }
 }
 
-class PickedCard {
-  type: string;
-  pickedCard: number;
-  constructor(type: string, pickedCard: number) {
-    this.type = type;
-    this.pickedCard = pickedCard;
-  }
-}
+// class PickedCard {
+//   type: string;
+//   pickedCard: number;
+//   constructor(type: string, pickedCard: number) {
+//     this.type = type;
+//     this.pickedCard = pickedCard;
+//   }
+// }

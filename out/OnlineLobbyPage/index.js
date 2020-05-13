@@ -3,8 +3,8 @@ import intl from "react-intl-universal";
 import { Lobby } from "boardgame.io/react";
 import { SocketIO } from "boardgame.io/multiplayer";
 import OnlineLobby from "../OnlineLobby";
-import { Game as FlammeRouge } from "../FlammeRougeCore";
-import FlammeRougeUI from "../FlammeRougeCore/UI";
+import { Game as ReVolt } from "../ReVoltCore";
+import ReVoltUI from "../ReVoltCore/UI";
 import Config from "../FlammeRougeCore/config";
 var url = Config && Config.REACT_APP_API_URL
     ? Config.REACT_APP_API_URL
@@ -13,8 +13,8 @@ var http = Config && Config.HTTP ? Config.HTTP : "http://";
 // const hostname = window.location.hostname;
 var importedGames = [
     {
-        game: FlammeRouge,
-        board: FlammeRougeUI,
+        game: ReVolt,
+        board: ReVoltUI,
         multiplayer: SocketIO({ server: url }),
         loading: function () { return <div>{intl.get("online.connecting")}</div>; },
     },

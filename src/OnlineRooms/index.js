@@ -3,7 +3,7 @@ import intl from "react-intl-universal";
 import { prettify } from "../Utils";
 
 import Card from "@material-ui/core/Card";
-import CardContent from "@material-ui/core/CardContent";
+// import CardContent from "@material-ui/core/CardContent";
 import CardHeader from "@material-ui/core/CardHeader";
 import IconAdd from "@material-ui/icons/AddCircleOutline";
 import IconButton from "@material-ui/core/IconButton";
@@ -12,10 +12,10 @@ import Tooltip from "@material-ui/core/Tooltip";
 import { Layout } from "./elements";
 import CreateRoomDialog from "../CreateRoomDialog";
 
-const findDuplicates = (arr) =>
-  arr.filter((item, index) =>
-    arr.filter((it, id) => id !== index).some((el) => el.gameID === item.gameID)
-  );
+// const findDuplicates = (arr) =>
+//   arr.filter((item, index) =>
+//     arr.filter((it, id) => id !== index).some((el) => el.gameID === item.gameID)
+//   );
 
 const removeDuplicates = (myArr, prop) => {
   return myArr.filter((obj, pos, arr) => {

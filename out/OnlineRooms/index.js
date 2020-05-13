@@ -15,6 +15,7 @@ import React, { Component, Fragment } from "react";
 import intl from "react-intl-universal";
 import { prettify } from "../Utils";
 import Card from "@material-ui/core/Card";
+// import CardContent from "@material-ui/core/CardContent";
 import CardHeader from "@material-ui/core/CardHeader";
 import IconAdd from "@material-ui/icons/AddCircleOutline";
 import IconButton from "@material-ui/core/IconButton";
@@ -22,11 +23,10 @@ import OnlineRoom from "../OnlineRoom";
 import Tooltip from "@material-ui/core/Tooltip";
 import { Layout } from "./elements";
 import CreateRoomDialog from "../CreateRoomDialog";
-var findDuplicates = function (arr) {
-    return arr.filter(function (item, index) {
-        return arr.filter(function (it, id) { return id !== index; }).some(function (el) { return el.gameID === item.gameID; });
-    });
-};
+// const findDuplicates = (arr) =>
+//   arr.filter((item, index) =>
+//     arr.filter((it, id) => id !== index).some((el) => el.gameID === item.gameID)
+//   );
 var removeDuplicates = function (myArr, prop) {
     return myArr.filter(function (obj, pos, arr) {
         return arr.map(function (mapObj) { return mapObj[prop]; }).indexOf(obj[prop]) === pos;

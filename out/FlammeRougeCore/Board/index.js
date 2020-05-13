@@ -1,6 +1,7 @@
 import { MapData } from "../MapData";
 import { isStepEmpty } from "../BoardUtilities";
 import { LAP_LENGTH, SHOOTINGS, MAX_CARD_VALUE } from "../Settings";
+import _ from "lodash";
 var Board = /** @class */ (function () {
     function Board(board) {
         var _this = this;
@@ -62,10 +63,16 @@ var Board = /** @class */ (function () {
         if (board && board.actions)
             this.actions = board.actions;
         if (board && board.map)
-            this.map = board.map;
+            this.map = new Map(board.map).clone();
         if (board && board.winner)
             this.winner = board.winner;
     }
+    Board.prototype.isEqual = function (b) {
+        return (b.map &&
+            b.actions &&
+            _.isEqual(this.map, b.map) &&
+            _.isEqual(this.actions, b.actions));
+    };
     Board.prototype.getDifficulty = function () {
         return this.map.path.reduce(function (a, c) {
             switch (c.type) {
@@ -299,7 +306,7 @@ var MapSpot = /** @class */ (function () {
             this.content = spot.content;
     }
     MapSpot.prototype.clone = function () {
-        return new MapSpot(this);
+        return new MapSpot({ content: _.cloneDeep(this.content) });
     };
     return MapSpot;
 }());
@@ -309,17 +316,20 @@ var MapStep = /** @class */ (function () {
         this.spots = [];
         this.type = null;
         if (step && step.spots)
-            this.spots = step.spots;
+            this.spots = step.spots.map(function (spot) { return new MapSpot(spot); });
         if (step && step.type)
             this.type = step.type;
     }
     MapStep.prototype.addSpots = function (n) {
-        this.spots = this.spots.concat(Array(n).fill(new MapSpot()));
+        var spots = Array(n).fill(null);
+        this.spots = this.spots.concat(spots.map(function () { return new MapSpot(); }));
         return this;
     };
     MapStep.prototype.clone = function () {
-        var step = new MapStep(this);
-        step.spots.map(function (spot) { return spot.clone(); });
+        var step = new MapStep({
+            spots: _.cloneDeep(this.spots),
+            type: this.type,
+        });
         return step;
     };
     return MapStep;
@@ -329,15 +339,14 @@ var Map = /** @class */ (function () {
     function Map(map) {
         this.path = [];
         if (map && map.path)
-            this.path = map.path;
+            this.path = map.path.map(function (step) { return new MapStep(step); });
     }
     Map.prototype.addCells = function (n, type) {
         this.path.push(new MapStep({ type: type }).addSpots(n));
         return this;
     };
     Map.prototype.clone = function () {
-        var map = new Map(this);
-        map.path.map(function (step) { return step.clone(); });
+        var map = new Map({ path: _.cloneDeep(this.path) });
         return map;
     };
     Map.prototype.resetPath = function () {
@@ -398,8 +407,8 @@ var Action = /** @class */ (function () {
 export { Action };
 var BoardPlayer = /** @class */ (function () {
     function BoardPlayer(playerID, runnerID, type) {
-        this.playerID = playerID;
-        this.runnerID = runnerID;
+        this.playerID = +playerID;
+        this.runnerID = +runnerID;
         this.type = type;
     }
     return BoardPlayer;

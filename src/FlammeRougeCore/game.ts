@@ -1,4 +1,4 @@
-import { Player, Deck } from "./Deck";
+import { Player, Runner, Deck } from "./Deck";
 import {
   Board,
   MapStep,
@@ -13,7 +13,7 @@ import {
   getPlayersWhoShouldShoot,
   getPlayersFromGPlayers,
 } from "./BoardUtilities";
-import { PlayerView } from "boardgame.io/core";
+// import { PlayerView } from "boardgame.io/core";
 import { Ctx } from "boardgame.io";
 import _ from "lodash";
 import {
@@ -23,11 +23,11 @@ import {
   CARDS_IN_HAND,
 } from "./Settings";
 
-const Maps = require("./MapData/maps.json");
+import Maps from "./MapData/maps";
 const MapsKeys = Object.keys(Maps);
 
 const IsVictory = (board: Board): boolean => {
-  return board.winner !== null;
+  return board.winner ? true : false;
 };
 
 const getInitialTurnOrder = (ctx: Ctx): number[] => {
@@ -57,7 +57,8 @@ const loadMap = (
   startingBlockWidth: number,
   numberOfRunnersPerPlayer: number
 ) => {
-  const board = new Board().map.init(
+  const board: Board = new Board();
+  board.map.init(
     numberOfPlayers,
     numberOfRunnersPerPlayer,
     startingBlockWidth,
@@ -791,10 +792,11 @@ const PlaceRunner = (G: any, ctx: Ctx, type: string) => {
   player.shuffleRunner(runnerID, random);
 
   const boardPlayer = new BoardPlayer(+playerID, runnerID, type);
+  board.placeRunner(boardPlayer);
 
   return {
     ...G,
-    board: board.placeRunner(boardPlayer),
+    board: board,
     players: {
       ...G.players,
       [playerID]: player,
@@ -821,20 +823,20 @@ const ShuffleTurnOrder = (G: any, ctx: Ctx) => {
 
 const ShouldEndPhasePlaceRunner = (G: any) => {
   let shouldEnd = true;
-  const players = Object.keys(G.players);
+  // const players = Object.keys(G.players);
   const board = new Board(G.board);
   const playersOnBoard = board.getRunnersInType();
-  const playersKeys = Object.keys(playersOnBoard);
+  const playersKeys = Object.keys(G.players);
   playersKeys
     // .map((player) => playersOnBoard[player])
-    .forEach((player: string) => {
-      const _player = new Player(G.players[player]);
-      const runnersNotOnBoard = _player.runners.filter(
-        (runner) =>
+    .forEach((id: string) => {
+      const player = new Player(G.players[id]);
+      const runnersNotOnBoard = player.runners.filter(
+        (runner: Runner) =>
           !runner ||
           !runner.deck ||
-          !playersOnBoard[+player] ||
-          playersOnBoard[+player].indexOf(runner.id) === -1
+          !playersOnBoard[+id] ||
+          playersOnBoard[+id].indexOf(runner.id) === -1
       );
       shouldEnd = shouldEnd && runnersNotOnBoard.length === 0;
     });

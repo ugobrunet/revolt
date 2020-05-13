@@ -1,6 +1,6 @@
 {
   "app_bar.rules": "Rules",
-  "app_bar.title": "The Pursuit",
+  "app_bar.title": "REVOLT",
   "congratulations.draw": "Draw",
   "congratulations.image": "Congratulations",
   "congratulations.winner": "Winner",
@@ -84,5 +84,6 @@
   "flamme_rouge.starting_block_spots": "Places au départ",
   "flamme_rouge.runners_per_player": "Coureur par joueur",
   "flamme_rouge.remaining_cards": "Cartes restantes : ",
-  "flamme_rouge.cards": "Cartes"
+  "flamme_rouge.cards": "Cartes",
+  "revolt.validate": "Valider"
 }

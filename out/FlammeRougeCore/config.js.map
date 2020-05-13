@@ -1,1 +1,1 @@
-{"version":3,"file":"config.js","sourceRoot":"","sources":["../../src/FlammeRougeCore/config.ts"],"names":[],"mappings":"AAAA,IAAM,MAAM,GAAG;IACb,iBAAiB,EAAE,mCAAmC;IACtD,IAAI,EAAE,UAAU;CAGjB,CAAC;AAEF,eAAe,MAAM,CAAC"}
+{"version":3,"file":"config.js","sourceRoot":"","sources":["../../src/FlammeRougeCore/config.ts"],"names":[],"mappings":"AAAA,IAAM,MAAM,GAAG;IACb,0DAA0D;IAC1D,oBAAoB;IACpB,iBAAiB,EAAE,gBAAgB;IACnC,IAAI,EAAE,SAAS;CAChB,CAAC;AAEF,eAAe,MAAM,CAAC"}

@@ -1,7 +1,8 @@
-import { MapData, MapBlockData } from "../MapData";
+import { MapData } from "../MapData";
 import { isStepEmpty } from "../BoardUtilities";
 import { LAP_LENGTH, SHOOTINGS, MAX_CARD_VALUE } from "../Settings";
-import { Player, Runner } from "../Deck";
+import { Runner } from "../Deck";
+import _ from "lodash";
 
 export type PlayerDictionnary<T> = {
   [playerID: number]: T;
@@ -19,8 +20,16 @@ export class Board {
   map = new Map(null);
   constructor(board?: any) {
     if (board && board.actions) this.actions = board.actions;
-    if (board && board.map) this.map = board.map;
+    if (board && board.map) this.map = new Map(board.map).clone();
     if (board && board.winner) this.winner = board.winner;
+  }
+  isEqual(b: Board) {
+    return (
+      b.map &&
+      b.actions &&
+      _.isEqual(this.map, b.map) &&
+      _.isEqual(this.actions, b.actions)
+    );
   }
   getDifficulty(): number {
     return this.map.path.reduce((a, c) => {
@@ -177,7 +186,7 @@ export class Board {
   }
   getSpotTypeForRunner = (
     playerID: number,
-    runnerID: number
+    runnerID: number | null
   ): string | null => {
     if (runnerID === null) return null;
     const rboard = this.render();
@@ -338,7 +347,7 @@ export class MapSpot {
     if (spot && spot.content) this.content = spot.content;
   }
   clone(): MapSpot {
-    return new MapSpot(this);
+    return new MapSpot({ content: _.cloneDeep(this.content) });
   }
 }
 
@@ -346,16 +355,20 @@ export class MapStep {
   spots: Array<MapSpot> = [];
   type: string | null = null;
   constructor(step?: any) {
-    if (step && step.spots) this.spots = step.spots;
+    if (step && step.spots)
+      this.spots = step.spots.map((spot: any) => new MapSpot(spot));
     if (step && step.type) this.type = step.type;
   }
   addSpots(n: number): MapStep {
-    this.spots = this.spots.concat(Array(n).fill(new MapSpot()));
+    const spots: null[] = Array(n).fill(null);
+    this.spots = this.spots.concat(spots.map(() => new MapSpot()));
     return this;
   }
   clone(): MapStep {
-    const step = new MapStep(this);
-    step.spots.map((spot) => spot.clone());
+    const step = new MapStep({
+      spots: _.cloneDeep(this.spots),
+      type: this.type,
+    });
     return step;
   }
 }
@@ -363,7 +376,8 @@ export class MapStep {
 class Map {
   path: Array<MapStep> = [];
   constructor(map?: any) {
-    if (map && map.path) this.path = map.path;
+    if (map && map.path)
+      this.path = map.path.map((step: any) => new MapStep(step));
   }
 
   addCells(n: number, type?: string): Map {
@@ -372,8 +386,7 @@ class Map {
   }
 
   clone(): Map {
-    const map = new Map(this);
-    map.path.map((step) => step.clone());
+    const map = new Map({ path: _.cloneDeep(this.path) });
     return map;
   }
 
@@ -451,8 +464,8 @@ export class BoardPlayer {
   runnerID: number;
   type: string;
   constructor(playerID: number, runnerID: number, type: string) {
-    this.playerID = playerID;
-    this.runnerID = runnerID;
+    this.playerID = +playerID;
+    this.runnerID = +runnerID;
     this.type = type;
   }
 }

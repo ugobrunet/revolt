@@ -14,10 +14,10 @@ import { Board, BoardPlayer, Move, } from "./Board";
 import { isStepEmpty, getPlayersWhoShouldPickCard, getPlayersWhoShouldShoot, getPlayersFromGPlayers, } from "./BoardUtilities";
 import _ from "lodash";
 import { LAP_LENGTH, MIN_DISTANCE_DOWN, MAX_DISTANCE_UP, CARDS_IN_HAND, } from "./Settings";
-var Maps = require("./MapData/maps.json");
+import Maps from "./MapData/maps";
 var MapsKeys = Object.keys(Maps);
 var IsVictory = function (board) {
-    return board.winner !== null;
+    return board.winner ? true : false;
 };
 var getInitialTurnOrder = function (ctx) {
     var numPlayers = ctx.numPlayers, random = ctx.random;
@@ -36,7 +36,8 @@ var getInitialPlayers = function (ctx, numberOfRunnersPerPlayer) {
     return _players;
 };
 var loadMap = function (numberOfPlayers, mapString, startingBlockWidth, numberOfRunnersPerPlayer) {
-    var board = new Board().map.init(numberOfPlayers, numberOfRunnersPerPlayer, startingBlockWidth, mapString);
+    var board = new Board();
+    board.map.init(numberOfPlayers, numberOfRunnersPerPlayer, startingBlockWidth, mapString);
     return board;
 };
 var SetStartingBlockWidth = function (G, ctx, val) {
@@ -506,7 +507,8 @@ var PlaceRunner = function (G, ctx, type) {
     }
     player.shuffleRunner(runnerID, random);
     var boardPlayer = new BoardPlayer(+playerID, runnerID, type);
-    return __assign(__assign({}, G), { board: board.placeRunner(boardPlayer), players: __assign(__assign({}, G.players), (_a = {}, _a[playerID] = player, _a)) });
+    board.placeRunner(boardPlayer);
+    return __assign(__assign({}, G), { board: board, players: __assign(__assign({}, G.players), (_a = {}, _a[playerID] = player, _a)) });
 };
 var ShuffleTurnOrder = function (G, ctx) {
     var turn = ctx.turn, random = ctx.random;
@@ -521,19 +523,19 @@ var ShuffleTurnOrder = function (G, ctx) {
 };
 var ShouldEndPhasePlaceRunner = function (G) {
     var shouldEnd = true;
-    var players = Object.keys(G.players);
+    // const players = Object.keys(G.players);
     var board = new Board(G.board);
     var playersOnBoard = board.getRunnersInType();
-    var playersKeys = Object.keys(playersOnBoard);
+    var playersKeys = Object.keys(G.players);
     playersKeys
         // .map((player) => playersOnBoard[player])
-        .forEach(function (player) {
-        var _player = new Player(G.players[player]);
-        var runnersNotOnBoard = _player.runners.filter(function (runner) {
+        .forEach(function (id) {
+        var player = new Player(G.players[id]);
+        var runnersNotOnBoard = player.runners.filter(function (runner) {
             return !runner ||
                 !runner.deck ||
-                !playersOnBoard[+player] ||
-                playersOnBoard[+player].indexOf(runner.id) === -1;
+                !playersOnBoard[+id] ||
+                playersOnBoard[+id].indexOf(runner.id) === -1;
         });
         shouldEnd = shouldEnd && runnersNotOnBoard.length === 0;
     });

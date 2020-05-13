@@ -14,6 +14,7 @@
     "@types/styled-components": "^5.1.0",
     "axios": "^0.19.2",
     "boardgame.io": "^0.39.9",
+    "esm": "^3.2.25",
     "js-cookie": "^2.2.1",
     "react": "latest",
     "react-beautiful-dnd": "^13.0.0",

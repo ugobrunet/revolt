@@ -5,7 +5,7 @@ import { SocketIO } from "boardgame.io/multiplayer";
 import OnlineLobby from "../OnlineLobby";
 import { Game as ReVolt } from "../ReVoltCore";
 import ReVoltUI from "../ReVoltCore/UI";
-import Config from "../FlammeRougeCore/config";
+import Config from "../config";
 
 const url =
   Config && Config.REACT_APP_API_URL

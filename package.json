@@ -28,7 +28,8 @@
     "serve": "npm run tsc && npm run server",
     "server": "node -r esm out/Server/index.js",
     "tsc": "tsc",
-    "start": "react-scripts start",
+    "start": "npm run serve",
+    "react-start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"

@@ -87,15 +87,13 @@ const renderCard = (
   hided?: boolean
 ) => (
   <Grid item xs={6} sm={4} md={2} key={key} className={classes.cardContainer}>
-    {key > 0 && <div className={classes.arrow}>></div>}
+    {key > 0 && <div className={classes.arrow}>{">"}</div>}
     <CardUI
       onClick={() => (selectCardPosition ? selectCardPosition(key) : null)}
       card={card}
       hided={hided !== undefined ? hided : false}
     ></CardUI>
   </Grid>
-  // <Item center className={classes.card} key={key}>
-  // </Item>
 );
 
 const ReVoltUI = ({

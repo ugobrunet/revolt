@@ -30,7 +30,7 @@
     "tsc": "tsc",
     "start": "npm run serve",
     "react-start": "react-scripts start",
-    "build": "react-scripts build",
+    "react-build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },

@@ -148,6 +148,15 @@ Cards.push(
     12,
     "30 MINUTES",
     25
+  ),
+  new Card(
+    Icons.Vacuum,
+    "ASPIRATEUR",
+    "15 minutes",
+    "pour 15 minutes de",
+    30,
+    "4 HEURES",
+    200
   )
 );
 
